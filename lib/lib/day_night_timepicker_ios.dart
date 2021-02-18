@@ -91,6 +91,9 @@ class DayNightTimePickerIos extends StatefulWidget {
   /// Weather to hide okText, cancelText and return value on every onValueChange.
   final bool isOnValueChangeMode;
 
+  /// A custom body widget that is inserted above the dialog buttons
+  final Widget bodyWidget;
+
   /// Initialize the picker [Widget]
   DayNightTimePickerIos({
     @required this.value,
@@ -118,6 +121,7 @@ class DayNightTimePickerIos extends StatefulWidget {
     this.minHour,
     this.minMinute,
     this.isInlineWidget = false,
+    this.bodyWidget,
   }) {
     if (isInlineWidget) {
       this.cancelText = "reset";
@@ -494,6 +498,7 @@ class _DayNightTimePickerIosState extends State<DayNightTimePickerIos> {
                   ],
                 ),
               ),
+              if (widget.bodyWidget != null) widget.bodyWidget,
             ],
           ),
         ),

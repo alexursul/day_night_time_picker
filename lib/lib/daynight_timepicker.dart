@@ -92,6 +92,7 @@ PageRouteBuilder showPicker({
   // Infinity is used so that we can assert whether or not the user actually set a value
   double minHour = double.infinity,
   double maxHour = double.infinity,
+  Widget bodyWidget,
 }) {
   if (minHour == double.infinity) {
     minHour = is24HrFormat ? 0 : 1;
@@ -141,6 +142,7 @@ PageRouteBuilder showPicker({
             maxMinute: maxMinute,
             minHour: minHour,
             minMinute: minMinute,
+            bodyWidget: bodyWidget,
           ),
         );
       } else {
@@ -168,6 +170,7 @@ PageRouteBuilder showPicker({
             maxMinute: maxMinute,
             minHour: minHour,
             minMinute: minMinute,
+            bodyWidget: bodyWidget,
           ),
         );
       }
