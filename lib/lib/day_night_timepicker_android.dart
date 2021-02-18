@@ -214,7 +214,7 @@ class _DayNightTimePickerAndroidState extends State<DayNightTimePickerAndroid> {
     if (widget.onChangeDateTime != null) {
       final now = DateTime.now();
       final dateTime =
-          DateTime(now.year, now.month, now.day, time.hour, time.minute);
+      DateTime(now.year, now.month, now.day, time.hour, time.minute);
       widget.onChangeDateTime(dateTime);
     }
     if (!widget.isOnValueChangeMode) {
@@ -233,10 +233,14 @@ class _DayNightTimePickerAndroidState extends State<DayNightTimePickerAndroid> {
 
   @override
   Widget build(BuildContext context) {
-    final _commonTimeStyles = Theme.of(context).textTheme.headline2.copyWith(
-          fontSize: 62,
-          fontWeight: FontWeight.bold,
-        );
+    final _commonTimeStyles = Theme
+        .of(context)
+        .textTheme
+        .headline2
+        .copyWith(
+      fontSize: 62,
+      fontWeight: FontWeight.bold,
+    );
 
     double min = getMinMinute(widget.minMinute, widget.minuteInterval);
     double max = getMaxMinute(widget.maxMinute, widget.minuteInterval);
@@ -253,9 +257,11 @@ class _DayNightTimePickerAndroidState extends State<DayNightTimePickerAndroid> {
       divisions = (max - min).round();
     }
 
-    final height = widget.is24HrFormat ? 200.0 : 240.0;
+    final height = widget.is24HrFormat ? 130.0 : 170.0;
 
-    final color = widget.accentColor ?? Theme.of(context).accentColor;
+    final color = widget.accentColor ?? Theme
+        .of(context)
+        .accentColor;
     final unselectedColor = widget.unselectedColor ?? Colors.grey;
     const unselectedOpacity = 1.0;
 
@@ -273,145 +279,152 @@ class _DayNightTimePickerAndroidState extends State<DayNightTimePickerAndroid> {
         elevation: elevation,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadius),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              widget.displayHeader
-                  ? DayNightBanner(
-                      hour: getHours(hour, a, widget.is24HrFormat),
-                      displace:
-                          mapRange(hour * 1.0, hourMinValue, hourMaxValue),
-                      sunAsset: widget.sunAsset,
-                      moonAsset: widget.moonAsset,
-                    )
-                  : Container(height: 25, color: Theme.of(context).cardColor),
-              Container(
-                height: height,
-                color: Theme.of(context).cardColor,
-                padding:
-                    const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    if (!widget.is24HrFormat)
-                      AmPm(
-                        accentColor: color,
-                        unselectedColor: unselectedColor,
-                        selected: a,
-                        onChange: (e) {
-                          setState(() {
-                            a = e;
-                          });
-                        },
-                      ),
-                    Expanded(
-                      child: Row(
-                        textDirection: TextDirection.ltr,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Material(
-                            color: Colors.transparent,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3.0),
-                              child: InkWell(
-                                onTap: widget.disableHour
-                                    ? null
-                                    : () {
-                                        changeCurrentSelector(true);
-                                      },
-                                child: Opacity(
-                                  opacity: changingHour ? 1 : unselectedOpacity,
-                                  child: Text(
-                                    "$hour",
-                                    style: _commonTimeStyles.copyWith(
-                                        color: changingHour
-                                            ? color
-                                            : unselectedColor),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(":", style: _commonTimeStyles),
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: widget.disableMinute
-                                  ? null
-                                  : () {
-                                      changeCurrentSelector(false);
-                                    },
+          child: Container(
+            color: Theme
+                .of(context)
+                .cardColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                widget.displayHeader
+                    ? DayNightBanner(
+                  hour: getHours(hour, a, widget.is24HrFormat),
+                  displace:
+                  mapRange(hour * 1.0, hourMinValue, hourMaxValue),
+                  sunAsset: widget.sunAsset,
+                  moonAsset: widget.moonAsset,
+                )
+                    : Container(height: 25, color: Theme
+                    .of(context)
+                    .cardColor),
+                Container(
+                  height: height,
+                  padding:
+                  const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      if (!widget.is24HrFormat)
+                        AmPm(
+                          accentColor: color,
+                          unselectedColor: unselectedColor,
+                          selected: a,
+                          onChange: (e) {
+                            setState(() {
+                              a = e;
+                            });
+                          },
+                        ),
+                      Expanded(
+                        child: Row(
+                          textDirection: TextDirection.ltr,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Material(
+                              color: Colors.transparent,
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 3.0),
-                                child: Opacity(
-                                  opacity:
-                                      !changingHour ? 1 : unselectedOpacity,
-                                  child: Text(
-                                    padNumber(minute),
-                                    style: _commonTimeStyles.copyWith(
-                                        color: !changingHour
-                                            ? color
-                                            : unselectedColor),
+                                const EdgeInsets.symmetric(horizontal: 3.0),
+                                child: InkWell(
+                                  onTap: widget.disableHour
+                                      ? null
+                                      : () {
+                                    changeCurrentSelector(true);
+                                  },
+                                  child: Opacity(
+                                    opacity: changingHour ? 1 : unselectedOpacity,
+                                    child: Text(
+                                      "$hour",
+                                      style: _commonTimeStyles.copyWith(
+                                          color: changingHour
+                                              ? color
+                                              : unselectedColor),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Slider(
-                      onChangeEnd: (value) {
-                        if (widget.isOnValueChangeMode) {
-                          onOk();
-                        }
-                      },
-                      value: changingHour
-                          ? hour.roundToDouble()
-                          : minute.roundToDouble(),
-                      onChanged: onChangeTime,
-                      min: min,
-                      max: max,
-                      divisions: divisions,
-                      activeColor: color,
-                      inactiveColor: color.withAlpha(55),
-                    ),
-                    if (widget.bodyWidget != null) widget.bodyWidget,
-                    !widget.isOnValueChangeMode
-                        ? Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                FlatButton(
-                                  onPressed: onCancel,
-                                  child: Text(
-                                    widget.cancelText.toUpperCase(),
-                                    style: okCancelStyle,
+                            Text(":", style: _commonTimeStyles),
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: widget.disableMinute
+                                    ? null
+                                    : () {
+                                  changeCurrentSelector(false);
+                                },
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 3.0),
+                                  child: Opacity(
+                                    opacity:
+                                    !changingHour ? 1 : unselectedOpacity,
+                                    child: Text(
+                                      padNumber(minute),
+                                      style: _commonTimeStyles.copyWith(
+                                          color: !changingHour
+                                              ? color
+                                              : unselectedColor),
+                                    ),
                                   ),
-                                  textColor: color,
                                 ),
-                                FlatButton(
-                                  onPressed: onOk,
-                                  child: Text(
-                                    widget.okText.toUpperCase(),
-                                    style: okCancelStyle,
-                                  ),
-                                  textColor: color,
-                                ),
-                              ],
+                              ),
                             ),
-                          )
-                        : SizedBox(
-                            height: 8,
-                          ),
-                  ],
+                          ],
+                        ),
+                      ),
+                      Slider(
+                        onChangeEnd: (value) {
+                          if (widget.isOnValueChangeMode) {
+                            onOk();
+                          }
+                        },
+                        value: changingHour
+                            ? hour.roundToDouble()
+                            : minute.roundToDouble(),
+                        onChanged: onChangeTime,
+                        min: min,
+                        max: max,
+                        divisions: divisions,
+                        activeColor: color,
+                        inactiveColor: color.withAlpha(55),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                if (widget.bodyWidget != null) widget.bodyWidget,
+                !widget.isOnValueChangeMode
+                    ? Container(
+                  height: 50,
+                  padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      FlatButton(
+                        onPressed: onCancel,
+                        child: Text(
+                          widget.cancelText.toUpperCase(),
+                          style: okCancelStyle,
+                        ),
+                        textColor: color,
+                      ),
+                      FlatButton(
+                        onPressed: onOk,
+                        child: Text(
+                          widget.okText.toUpperCase(),
+                          style: okCancelStyle,
+                        ),
+                        textColor: color,
+                      ),
+                    ],
+                  ),
+                )
+                    : SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
