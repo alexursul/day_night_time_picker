@@ -468,6 +468,7 @@ class _DayNightTimePickerIosState extends State<DayNightTimePickerIos> {
                         ],
                       ),
                     ),
+                    if (widget.bodyWidget != null) widget.bodyWidget,
                     !widget.isOnValueChangeMode
                         ? Expanded(
                             child: Row(
@@ -498,7 +499,6 @@ class _DayNightTimePickerIosState extends State<DayNightTimePickerIos> {
                   ],
                 ),
               ),
-              if (widget.bodyWidget != null) widget.bodyWidget,
             ],
           ),
         ),
